@@ -67,6 +67,7 @@
           >
             {{ eco.text }}
           </a>
+          <span>Hi</span>
         </v-row>
       </v-col>
     </v-row>
