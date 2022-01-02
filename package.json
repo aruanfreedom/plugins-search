@@ -85,7 +85,7 @@
     "pre-commit": "lint-staged"
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
+    "*.{ts,vue,tsx}": [
       "yarn eslint",
       "yarn prettier --write",
       "vue-cli-service lint",
