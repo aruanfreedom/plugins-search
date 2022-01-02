@@ -3,7 +3,7 @@ import HelloWorld from "@/components/HelloWorld.vue";
 
 describe("HelloWorld.vue", () => {
   it("renders props.msg when passed", () => {
-    const msg = "vuetify-loa";
+    const msg = "vuetify-loader";
     const wrapper = shallowMount(HelloWorld, {
       propsData: { msg },
     });
