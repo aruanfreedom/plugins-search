@@ -89,7 +89,8 @@
       "yarn eslint",
       "yarn prettier --write",
       "vue-cli-service lint",
-      "git add"
+      "git add",
+      "yarn test:unit"
     ]
   }
 }
