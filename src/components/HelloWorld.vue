@@ -82,7 +82,7 @@ export default Vue.extend({
   data: () => ({
     ecosystem: [
       {
-        text: "zagruzka",
+        text: "vuetify-loader",
         href: "https://github.com/vuetifyjs/vuetify-loader",
       },
       {
