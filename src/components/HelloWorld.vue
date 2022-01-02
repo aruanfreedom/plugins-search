@@ -135,9 +135,11 @@ export default Vue.extend({
     msg: String,
   },
   created() {
-    setTimeout(() => {
-      console.log("hello");
-    }, 1000);
+    // const a = await setTimeout(() => {
+    //   console.log("hello");
+    // }, 1000);
+    //
+    // console.log(a);
   },
 });
 </script>
