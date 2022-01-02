@@ -81,6 +81,8 @@
   },
   "lint-staged": {
     "*.{js,jsx,vue,ts,tsx}": [
+      "yarn eslint",
+      "yarn prettier --write",
       "vue-cli-service lint",
       "git add"
     ]
