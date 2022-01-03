@@ -1,7 +1,7 @@
 import { shallowMount } from "@vue/test-utils";
-import HelloWorld from "@/components/HelloWorld.vue";
+import HelloWorld from "@/components/Body.vue";
 
-describe("HelloWorld.vue", () => {
+describe("Body.vue", () => {
   it("renders props.msg when passed 1", () => {
     const msg = "vuetify-loader";
     const wrapper = shallowMount(HelloWorld, {
