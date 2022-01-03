@@ -1,6 +1,5 @@
 <template>
   <div class="text-center">
-    {{ info }}
     <v-dialog v-model="dialog" width="500" height="300px">
       <v-card>
         <v-card-title class="text-h5 grey lighten-2">
@@ -41,6 +40,8 @@
 <script lang="ts">
 import { logger } from "@/helpers/logger";
 import api from "@/api";
+import { observer } from "@/main";
+import { IPackage } from "@/types";
 
 export default {
   name: "Dialog",
@@ -57,7 +58,6 @@ export default {
       loading: false,
     };
   },
-  props: ["packageInfo"],
   methods: {
     closeDialog() {
       this.dialog = false;
@@ -80,12 +80,10 @@ export default {
       }
     },
   },
-  computed: {
-    info() {
-      this.getPackage(this.packageInfo.name);
-
-      return "";
-    },
+  created() {
+    observer.$on("sendDialog", (data: IPackage) => {
+      this.getPackage(data.name);
+    });
   },
 };
 </script>

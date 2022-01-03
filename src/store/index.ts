@@ -6,7 +6,6 @@ Vue.use(Vuex);
 
 interface IState {
   packages: IPackage[];
-  dialog: IPackage;
   pages: IPackage[];
   searchWord: string;
 }
@@ -14,11 +13,6 @@ interface IState {
 export default new Vuex.Store({
   state: {
     packages: [],
-    dialog: {
-      type: "",
-      name: "",
-      hits: "",
-    },
     pages: [],
     searchWord: "",
   },
@@ -29,9 +23,6 @@ export default new Vuex.Store({
     foundPackages(state: IState, payload) {
       state.pages = [...payload.pages];
       state.searchWord = payload.searchWord;
-    },
-    sendDialog(state: IState, packageInfo) {
-      state.dialog = packageInfo;
     },
   },
   actions: {},

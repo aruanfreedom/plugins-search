@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Dialog :package-info="packageInfo" />
+    <Dialog />
     <div class="table">
       <v-simple-table height="50vh">
         <template v-slot:default>
@@ -34,6 +34,7 @@ import api from "@/api";
 import Dialog from "@/components/Dialog.vue";
 import { logger } from "@/helpers/logger";
 import { IPackage, IPages } from "@/types";
+import { observer } from "@/main";
 
 export default {
   name: "Table",
@@ -43,14 +44,11 @@ export default {
   data() {
     return {
       page: 1,
-      packageInfo: {},
     };
   },
   methods: {
     openDialog(packageInfo: IPackage): void {
-      this.packageInfo = packageInfo;
-      this.$store.commit("sendDialog", packageInfo);
-      this.$.commit("sendDialog", packageInfo);
+      observer.$emit("sendDialog", packageInfo);
     },
   },
   computed: {
