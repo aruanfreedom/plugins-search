@@ -21,9 +21,6 @@ export default Vue.extend({
     Search,
     Table,
   },
-  data: () => ({
-    //
-  }),
 });
 </script>
 
