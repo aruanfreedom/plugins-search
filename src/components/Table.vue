@@ -35,12 +35,13 @@ import Dialog from "@/components/Dialog.vue";
 import { logger } from "@/helpers/logger";
 import { IPackage, IPages } from "@/types";
 import { observer } from "@/main";
+import Vue from "vue";
 
 interface IData {
   page: number;
 }
 
-export default {
+export default Vue.extend({
   name: "Table",
   components: {
     Dialog,
@@ -93,7 +94,7 @@ export default {
       logger(error.message);
     }
   },
-};
+});
 </script>
 
 <style scoped>

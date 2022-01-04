@@ -18,8 +18,9 @@
 import { IUrl } from "@/api/requests";
 import { PAGE_COUNT } from "@/constants";
 import { IPackage, IPages } from "@/types";
+import Vue from "vue";
 
-export default {
+export default Vue.extend({
   name: "Search",
   methods: {
     splitPages(packages: IPackage[], PAGE_COUNT: number): IPages[] {
@@ -55,7 +56,7 @@ export default {
       });
     },
   },
-};
+});
 </script>
 
 <style scoped></style>
