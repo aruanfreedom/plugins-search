@@ -38,18 +38,22 @@
 </template>
 
 <script lang="ts">
+import Vue from "vue";
 import { logger } from "@/helpers/logger";
 import api from "@/api";
 import { observer } from "@/main";
 import { IPackage } from "@/types";
 
-export default {
+interface IPackageInfo {
+  versions?: never[];
+}
+
+export default Vue.extend({
   name: "Dialog",
   data() {
     return {
       dialog: false,
       latest: "",
-      data: {},
       alpha: "",
       beta: "",
       canary: "",
@@ -67,12 +71,16 @@ export default {
         if (!name) return Promise.resolve("nothing");
         this.dialog = true;
         this.loading = true;
-        const packageInfo = await api.get("package", {}, `/${name}`);
-        this.latest = packageInfo?.tags?.latest;
-        this.alpha = packageInfo?.tags?.alpha;
-        this.beta = packageInfo?.tags?.beta;
-        this.canary = packageInfo?.tags?.canary;
-        this.rc = packageInfo?.tags?.rc;
+        const packageInfo: any = await api.get("package", {}, `/${name}`);
+
+        if (packageInfo) {
+          this.latest = packageInfo.tags.latest;
+          this.alpha = packageInfo?.tags.alpha;
+          this.beta = packageInfo.tags.beta;
+          this.canary = packageInfo.tags.canary;
+          this.rc = packageInfo.tags.rc;
+        }
+
         this.versions = packageInfo?.versions || [];
         this.loading = false;
       } catch (error) {
@@ -80,12 +88,12 @@ export default {
       }
     },
   },
-  created() {
-    observer.$on("sendDialog", (data: IPackage) => {
-      this.getPackage(data.name);
+  created(): void {
+    observer.$on("sendDialog", (packageInfo: IPackage) => {
+      this.getPackage(packageInfo.name);
     });
   },
-};
+});
 </script>
 
 <style scoped>

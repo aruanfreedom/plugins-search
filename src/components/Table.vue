@@ -36,12 +36,16 @@ import { logger } from "@/helpers/logger";
 import { IPackage, IPages } from "@/types";
 import { observer } from "@/main";
 
+interface IData {
+  page: number;
+}
+
 export default {
   name: "Table",
   components: {
     Dialog,
   },
-  data() {
+  data(): IData {
     return {
       page: 1,
     };

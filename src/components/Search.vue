@@ -23,7 +23,7 @@ export default {
   name: "Search",
   methods: {
     splitPages(packages: IPackage[], PAGE_COUNT: number): IPages[] {
-      return packages.reduce((acc, item, index) => {
+      return packages.reduce((acc: any, item, index) => {
         const chunkIndex = Math.floor(index / PAGE_COUNT);
 
         if (!acc[chunkIndex]) {
