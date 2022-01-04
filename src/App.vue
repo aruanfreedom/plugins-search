@@ -11,7 +11,7 @@
       </v-btn>
     </v-app-bar>
     <v-main>
-      <router-view />
+      <Body />
     </v-main>
     <Footer />
   </v-app>
@@ -19,12 +19,14 @@
 
 <script lang="ts">
 import Vue from "vue";
+import Body from "@/components/Body.vue";
 import Footer from "@/components/Footer.vue";
 
 export default Vue.extend({
   name: "App",
   components: {
     Footer,
+    Body,
   },
 });
 </script>

@@ -35,7 +35,7 @@ const requestType = (
 };
 
 const api: IApi = {
-  get: (requestName, params?: ISerialize, query?: string): Promise<any> => {
+  get: (requestName, params?: ISerialize, query?: string): Promise<string> => {
     const request = requests.urls.find(
       (request: IUrl) => requestName === request.name
     );

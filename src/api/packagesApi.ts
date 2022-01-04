@@ -1,7 +1,7 @@
 import { RequestsTypes } from "@/constants";
 import { IRequests } from "@/api/requests";
 
-export const createRequests = (requests: IRequests) => {
+export const createRequests = (requests: IRequests): void => {
   // Список всех пакетов
   requests.addUrl("allPackages", "stats/packages", RequestsTypes.GET);
 
