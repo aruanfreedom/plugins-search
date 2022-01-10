@@ -1,51 +1,34 @@
-import requests, { IUrl } from "@/api/requests";
-import { createRequests } from "@/api/packagesApi";
+import requests from "@/api/requests";
 import { RequestsTypes } from "@/constants";
 import { ISerialize, serialize } from "@/helpers/serialize";
+import { IApi, IRequests, IUrl } from "@/types";
 
-interface IApi {
-  get: (requestName: string, params?: ISerialize, query?: string) => unknown;
-}
+const api: IRequests & IApi = Object.create(requests);
 
-const createGetRequest = async (
-  requestName: string,
+const _fetchGetRequest = async function (
+  requestPath: string,
   params?: ISerialize,
   query?: string
-) => {
+): Promise<Record<string, number | string>> {
   const request = await fetch(
-    `${requestName}${query || ""}${serialize(params)}`
+    `${this._baseUrl}/${requestPath}${query || ""}${serialize(params)}`
   );
   const result = await request.json();
   return result;
 };
 
-const requestType = (
-  type: string,
-  request: IUrl,
-  params?: ISerialize,
-  query?: string
-) => {
-  switch (type) {
-    case RequestsTypes.GET: {
-      return createGetRequest(request.path, params, query);
-    }
-    default:
-      return Promise.resolve("nothing");
+api.get = function (
+  requestName,
+  query?: string,
+  params?: ISerialize
+): Promise<Record<string, number | string>> {
+  const request = this.urls[requestName];
+
+  if (request) {
+    return _fetchGetRequest.call(this, request.path, params, query);
   }
+
+  return Promise.resolve({ requestName: "not found" });
 };
-
-const api: IApi = {
-  get: (requestName, params?: ISerialize, query?: string): Promise<string> => {
-    const request = requests.urls.find(
-      (request: IUrl) => requestName === request.name
-    );
-
-    if (!request) return Promise.resolve("nothing");
-
-    return requestType(RequestsTypes.GET, request, params, query);
-  },
-};
-
-createRequests(requests);
 
 export default api;

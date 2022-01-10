@@ -42,11 +42,7 @@ import Vue from "vue";
 import { logger } from "@/helpers/logger";
 import api from "@/api";
 import { observer } from "@/main";
-import { IPackage } from "@/types";
-
-interface IPackageInfo {
-  versions?: never[];
-}
+import { IPackage, IPackageInfo } from "@/types";
 
 export default Vue.extend({
   name: "Dialog",
@@ -66,22 +62,24 @@ export default Vue.extend({
     closeDialog() {
       this.dialog = false;
     },
-    async getPackage(name: string): Promise<any> {
+    setDataView(packageInfo: IPackageInfo): void {
+      if (packageInfo.tags) {
+        this.latest = packageInfo.tags.latest || "";
+        this.alpha = packageInfo.tags.alpha || "";
+        this.beta = packageInfo.tags.beta || "";
+        this.canary = packageInfo.tags.canary || "";
+        this.rc = packageInfo.tags.rc || "";
+      }
+
+      this.versions = packageInfo?.versions || [];
+    },
+    async getPackage(name: string): Promise<void | string> {
       try {
         if (!name) return Promise.resolve("nothing");
         this.dialog = true;
         this.loading = true;
-        const packageInfo: any = await api.get("package", {}, `/${name}`);
-
-        if (packageInfo) {
-          this.latest = packageInfo.tags.latest;
-          this.alpha = packageInfo?.tags.alpha;
-          this.beta = packageInfo.tags.beta;
-          this.canary = packageInfo.tags.canary;
-          this.rc = packageInfo.tags.rc;
-        }
-
-        this.versions = packageInfo?.versions || [];
+        const packageInfo = await api.get("package", `/${name}`);
+        this.setDataView(packageInfo);
         this.loading = false;
       } catch (error) {
         logger(error.message);

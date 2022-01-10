@@ -13,5 +13,7 @@ export const serialize = (params?: ISerialize): string => {
       );
     }
   });
-  return `?${str.join("&")}`;
+
+  const pathParams = `?${str.join("&")}`;
+  return pathParams;
 };

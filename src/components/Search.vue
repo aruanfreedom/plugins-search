@@ -15,7 +15,6 @@
 </template>
 
 <script lang="ts">
-import { IUrl } from "@/api/requests";
 import { PAGE_COUNT } from "@/constants";
 import { IPackage, IPages } from "@/types";
 import Vue from "vue";
@@ -38,7 +37,7 @@ export default Vue.extend({
     },
     filterName(value: string): IPackage[] {
       return this.$store.state.packages.filter(
-        (pack: IUrl) =>
+        (pack: IPackage) =>
           pack.name && pack.name.toLowerCase().trim().search(value) !== -1
       );
     },

@@ -67,7 +67,7 @@ export default Vue.extend({
 
       return pages.length;
     },
-    currentPage(): IPages[] | IPackage[] {
+    currentPage(): IPages[] {
       const prevValue = this.page - 1;
       return this.$store.state.pages[prevValue];
     },
@@ -86,7 +86,7 @@ export default Vue.extend({
       return packages;
     },
   },
-  async created(): Promise<any> {
+  async created(): Promise<void> {
     try {
       const packages = await api.get("allPackages");
       this.$store.commit("newPackages", packages);
