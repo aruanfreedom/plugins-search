@@ -1,9 +1,6 @@
-import requests from "@/api/requests";
-import { RequestsTypes } from "@/constants";
+import { BASE_URL } from "@/constants";
 import { ISerialize, serialize } from "@/helpers/serialize";
-import { IApi, IRequests, IUrl } from "@/types";
-
-const api: IRequests & IApi = Object.create(requests);
+import { IRequests, IUrl } from "@/types";
 
 const _fetchGetRequest = async function (
   requestPath: string,
@@ -17,8 +14,8 @@ const _fetchGetRequest = async function (
   return result;
 };
 
-api.get = function (
-  requestName,
+const get = function (
+  requestName: string,
   query?: string,
   params?: ISerialize
 ): Promise<Record<string, number | string>> {
@@ -29,6 +26,18 @@ api.get = function (
   }
 
   return Promise.resolve({ requestName: "not found" });
+};
+
+const init = function (apiConfig: IUrl, baseUrl?: string): void {
+  if (baseUrl) this._baseUrl = baseUrl;
+  this.urls = apiConfig;
+};
+
+const api: IRequests = {
+  _baseUrl: BASE_URL,
+  urls: {},
+  init,
+  get,
 };
 
 export default api;

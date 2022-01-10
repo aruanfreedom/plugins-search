@@ -3,13 +3,13 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
-import requests from "@/api/requests";
+import api from "@/api";
 import { apiConfig } from "@/api/apiConfig";
 
 Vue.config.productionTip = false;
 
 export const observer = new Vue();
-requests.init(apiConfig);
+api.init(apiConfig);
 
 new Vue({
   router,

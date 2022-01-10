@@ -78,8 +78,10 @@ export default Vue.extend({
         if (!name) return Promise.resolve("nothing");
         this.dialog = true;
         this.loading = true;
+
         const packageInfo = await api.get("package", `/${name}`);
         this.setDataView(packageInfo);
+
         this.loading = false;
       } catch (error) {
         logger(error.message);

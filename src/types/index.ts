@@ -26,7 +26,6 @@ export interface IPackageInfo {
 export interface IUrlParams {
   method: string;
   path: string;
-  name: string;
 }
 
 export interface IUrl {
@@ -36,7 +35,12 @@ export interface IUrl {
 export interface IRequests {
   _baseUrl: string;
   urls: IUrl;
-  init: (packagesURL: IUrl, baseUrl?: string) => void;
+  init: (apiConfig: IUrl, baseUrl?: string) => void;
+  get: (
+    requestName: string,
+    query?: string,
+    params?: ISerialize
+  ) => Promise<IPackageInfo>;
 }
 
 export interface IApi {
